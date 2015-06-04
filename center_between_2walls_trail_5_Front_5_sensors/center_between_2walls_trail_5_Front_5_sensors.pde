@@ -3,6 +3,7 @@
 // See license.txt for license details.
 
 #include <SabertoothSimplified.h>
+#include <IOShieldOled.h>
 
 #define trig_RF 39
 #define echo_RF 38
@@ -39,9 +40,7 @@ void setup()
 {
   SabertoothTXPinSerial.begin(9600);
   Serial.begin(9600);
-  //Setups each pin as a inpur or output
-  // Trigger pins are Outputs
-  // Echo pins are inputs
+
   pinMode(trig_RF, OUTPUT);
   pinMode(echo_RF, INPUT);
   pinMode(trig_RB, OUTPUT);
@@ -59,23 +58,23 @@ void setup()
 
 void loop(){
   //**Test sensors ar working properly**
-//  int RF=ping_Rfront();
-//  int F=ping_front();
-//  int LF=ping_Lfront();
-//  int RB=ping_Rback();
-//  int LB=ping_Lback();
-//  
-//  Serial.print(RF);
-//  Serial.println(" Right front");
-//  Serial.print(RB);
-//  Serial.println(" Right back");
-//  Serial.print(F);
-//  Serial.println(" Front");
-//  Serial.print(LF);
-//  Serial.println(" Left front");
-//  Serial.print(LB);
-//  Serial.println(" Left back");
-//  delay(100);
+  int RF=ping_Rfront();
+  int F=ping_front();
+  int LF=ping_Lfront();
+  int RB=ping_Rback();
+  int LB=ping_Lback();
+  
+  Serial.print(RF);
+  Serial.println(" Right front");
+  Serial.print(RB);
+  Serial.println(" Right back");
+  Serial.print(F);
+  Serial.println(" Front");
+  Serial.print(LF);
+  Serial.println(" Left front");
+  Serial.print(LB);
+  Serial.println(" Left back");
+  delay(100);
 
 
   //**Motor Control**
@@ -85,8 +84,11 @@ void loop(){
  int F_value = ping_front();
  int LF_value = ping_Lfront();
  int LB_value = ping_Lback();
+ 
+ ST.motor(1, 60);
+ ST.motor(2, 60);
   
- while(ping_Lfront() >=  ping_Rback() && ping_Lfront() > ping_Rfront() && ping_front() > 30 ){
+ while(ping_Lfront() >=  ping_Rback() && ping_front() > 30 ){
  
         if(LF_value > RF_value){
           
